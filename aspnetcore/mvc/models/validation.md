@@ -80,13 +80,13 @@ ms.locfileid: "76268743"
 
 若要查找为特定特性的错误消息而传递给 `String.Format` 的参数，请参阅 [DataAnnotations 源代码](https://github.com/dotnet/corefx/tree/master/src/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations)。
 
-## <a name="required-attribute"></a>[必需] 特性
+## <a name="required-attribute"></a>[Required] 特性
 
 .NET Core 3.0 和更高版本中的验证系统将不可为 null 的参数或绑定属性视为具有 `[Required]` 特性。 `decimal` 和 `int` 等[值类型](/dotnet/csharp/language-reference/keywords/value-types)是不可为 null 的类型。 可以通过在 `Startup.ConfigureServices` 中配置 <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> 来禁用此行为：
 
 ``csharp services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true); ...
 
-### <a name="required-validation-on-the-server"></a>[必需] 服务器上的验证
+### <a name="required-validation-on-the-server"></a>[Required] 服务器上的验证
 
 在服务器上，如果属性为 null，则认为所需值缺失。 不可为 null 的字段始终有效，并且从不显示 `[Required]` 属性的错误消息。
 
@@ -99,22 +99,22 @@ ms.locfileid: "76268743"
 
   有关模型绑定错误（可以为其设置默认消息）的更多信息，请参阅 <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelBindingMessageProvider#methods>。
 
-### <a name="required-validation-on-the-client"></a>[必需] 客户端上的验证
+### <a name="required-validation-on-the-client"></a>[Required] 客户端上的验证
 
 在客户端上处理不可为 null 类型和字符串的方式与在服务器上不同。 在客户端上：
 
 * 只有在为值输入一个输入时，才认为该值存在。 因此，客户端验证处理不可为 null 类型的方式与处理可以为 null 类型的方式相同。
-* jQuery 验证[必需](https://jqueryvalidation.org/required-method/)方法将字符串字段中的空格视为有效输入。 如果只输入空格，服务器端验证会将必需的字符串字段视为无效。
+* jQuery 验证[Required](https://jqueryvalidation.org/required-method/)方法将字符串字段中的空格视为有效输入。 如果只输入空格，服务器端验证会将必需的字符串字段视为无效。
 
 如前所述，将不可为 null 类型视为具有 `[Required]` 特性。 这意味着即使不应用 `[Required]` 特性，也可进行客户端验证。 但如果不使用该特性，将收到默认错误消息。 若要指定自定义错误消息，使用该特性。
 
-## <a name="remote-attribute"></a>[远程] 特性
+## <a name="remote-attribute"></a>[Remote] 特性
 
 `[Remote]` 特性实现客户端验证，该验证需要在服务器上调用方法，以确定字段输入是否有效。 例如，应用可能需要验证用户名是否已在使用。
 
 若要实现远程验证：
 
-1. 创建可供 JavaScript 调用的操作方法。  jQuery Validate [远程](https://jqueryvalidation.org/remote-method/)方法要求 JSON 响应：
+1. 创建可供 JavaScript 调用的操作方法。  jQuery Validate [Remote](https://jqueryvalidation.org/remote-method/)方法要求 JSON 响应：
 
    * `true` 表示输入数据有效。
    * `false`、`undefined` 或 `null` 表示输入无效。 显示默认错误消息。
